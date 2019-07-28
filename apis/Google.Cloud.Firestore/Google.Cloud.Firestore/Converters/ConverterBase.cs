@@ -26,7 +26,7 @@ namespace Google.Cloud.Firestore.Converters
     /// <summary>
     /// A base class for many converters, allowing them to simply override the method for the one
     /// deserialization case required. Serializing to a single value has to be implemented; serializing
-    /// to a map will fail with an exception unless <see cref="SerializeMap(object, IDictionary{string, Value})"/>
+    /// to a map will fail with an exception unless <see cref="SerializeMap(SerializationContext,object,System.Collections.Generic.IDictionary{string,Google.Cloud.Firestore.V1.Value})"/>
     /// is overridden.
     /// </summary>
     internal abstract class ConverterBase : IFirestoreInternalConverter
@@ -70,9 +70,9 @@ namespace Google.Cloud.Firestore.Converters
             }
         }
 
-        public abstract Value Serialize(object value);
+        public abstract Value Serialize(SerializationContext serializationContext, object value);
 
-        public virtual void SerializeMap(object value, IDictionary<string, Value> map) =>
+        public virtual void SerializeMap(SerializationContext serializationContext, object value, IDictionary<string, Value> map) =>
             throw new ArgumentException($"Unable to convert {TargetType} to a map");
 
         protected virtual object DeserializeArray(DeserializationContext context, RepeatedField<Value> values) =>

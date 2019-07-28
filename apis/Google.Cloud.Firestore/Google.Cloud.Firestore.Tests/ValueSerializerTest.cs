@@ -97,7 +97,7 @@ namespace Google.Cloud.Firestore.Tests
         [MemberData(nameof(SerializeOnlyData))]
         public void Serialize(object input, Value expectedOutput)
         {
-            var actual = ValueSerializer.Serialize(input);
+            var actual = SerializationContext.Serializer.Serialize(SerializationContext, input);
             Assert.Equal(expectedOutput, actual);
         }
 
@@ -106,7 +106,7 @@ namespace Google.Cloud.Firestore.Tests
         public void ValueIsCloned(IMessage proto, Func<Value, IMessage> selector)
         {
             // Protos should be accepted, but cloned (as they're mutable, and we mutate things too)
-            var value = ValueSerializer.Serialize(proto);
+            var value = SerializationContext.Serializer.Serialize(SerializationContext, proto);
             var actual = selector(value);
             Assert.NotSame(proto, actual);
             Assert.Equal(proto, actual);
@@ -116,14 +116,14 @@ namespace Google.Cloud.Firestore.Tests
         public void Serialize_Invalid()
         {
             // It's unlikely that we'll ever support serializing System.Type...
-            Assert.Throws<ArgumentException>(() => ValueSerializer.Serialize(typeof(ValueSerializer)));
+            Assert.Throws<ArgumentException>(() => SerializationContext.Serializer.Serialize(SerializationContext, typeof(ValueSerializer)));
         }
 
         [Theory]
         [MemberData(nameof(SerializeMapTestData))]
         public void SerializeMap(object input, Dictionary<string, Value> expectedOutput)
         {
-            var actual = ValueSerializer.SerializeMap(input);
+            var actual = SerializationContext.Serializer.SerializeMap(SerializationContext, input);
             Assert.Equal(expectedOutput, actual);
         }
 
@@ -131,7 +131,7 @@ namespace Google.Cloud.Firestore.Tests
         [MemberData(nameof(SerializeMapTestData))]
         public void SerializeValue_SameAsMap(object input, Dictionary<string, Value> expectedMap)
         {
-            var actual = ValueSerializer.Serialize(input);
+            var actual = SerializationContext.Serializer.Serialize(SerializationContext, input);
             var expectedValue = new Value { MapValue = new MapValue { Fields = { expectedMap } } };
             Assert.Equal(expectedValue, actual);
         }
@@ -140,7 +140,7 @@ namespace Google.Cloud.Firestore.Tests
         public void SerializeMap_Invalid()
         {
             // It's unlikely that we'll ever support serializing System.Type...
-            Assert.Throws<ArgumentException>(() => ValueSerializer.SerializeMap(typeof(ValueSerializer)));
+            Assert.Throws<ArgumentException>(() => SerializationContext.Serializer.Serialize(SerializationContext, typeof(ValueSerializer)));
         }
 
         [Fact]
@@ -148,7 +148,7 @@ namespace Google.Cloud.Firestore.Tests
         {
             ulong value = long.MaxValue;
             value++;
-            Assert.Throws<OverflowException>(() => ValueSerializer.Serialize(value));
+            Assert.Throws<OverflowException>(() => SerializationContext.Serializer.Serialize(SerializationContext, value));
         }
 
         [Theory]
@@ -157,15 +157,17 @@ namespace Google.Cloud.Firestore.Tests
         public void BadDateTimeKind(DateTimeKind kind)
         {
             var date = new DateTime(2017, 10, 6, 1, 2, 3, kind);
-            Assert.Throws<ArgumentException>(() => ValueSerializer.Serialize(date));
+            Assert.Throws<ArgumentException>(() => SerializationContext.Serializer.Serialize(SerializationContext, date));
         }
 
         [Fact]
         public void ArrayInArray()
         {
             var badArray = new[] { new int[10] };
-            Assert.Throws<ArgumentException>(() => ValueSerializer.Serialize(badArray));
+            Assert.Throws<ArgumentException>(() => SerializationContext.Serializer.Serialize(SerializationContext, badArray));
         }
+
+        private SerializationContext SerializationContext => new SerializationContext(ValueSerializer.Instance);
 
         [FirestoreData]
         private class SentinelModel

@@ -20,6 +20,7 @@ namespace Google.Cloud.Firestore.Benchmarks
 {
     internal class SampleData
     {
+        private static SerializationContext SerializationContext => new SerializationContext(ValueSerializer.Instance);
         // We have the same data in multiple POCO formats, then serialized as both a map and a single value.
         internal static HighScore Attributed { get; } = new HighScore("Alice", 20, 100);
         internal static object Anonymous { get; } = new { Name = "Alice", Level = 20, Score = 100 };
@@ -31,8 +32,8 @@ namespace Google.Cloud.Firestore.Benchmarks
         };
 
         internal static ExpandoObject Expando { get; } = CreateExpando();
-        internal static Value Serialized { get; } = ValueSerializer.Serialize(Attributed);
-        internal static Dictionary<string, Value> SerializedMap { get; } = ValueSerializer.SerializeMap(Attributed);
+        internal static Value Serialized { get; } = SerializationContext.Serializer.Serialize(SerializationContext, Attributed);
+        internal static Dictionary<string, Value> SerializedMap { get; } = SerializationContext.Serializer.SerializeMap(SerializationContext, Attributed);
 
         // Expandos don't work well with object initializers :(
         private static ExpandoObject CreateExpando()

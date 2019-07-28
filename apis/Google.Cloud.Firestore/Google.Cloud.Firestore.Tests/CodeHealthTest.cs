@@ -30,7 +30,7 @@ namespace Google.Cloud.Firestore.Tests
         {
             // Query is neither sealed nor abstract, deliberately: CollectionReference derives from it, and
             // it creates new instances of itself.
-            CodeHealthTester.AssertClassesAreSealedOrAbstract(typeof(FirestoreDb), new[] { typeof(Query) });
+            CodeHealthTester.AssertClassesAreSealedOrAbstract(typeof(FirestoreDb), new[] { typeof(Query), typeof(ValueSerializer), typeof(ValueDeserializer) });
         }
     }
 }

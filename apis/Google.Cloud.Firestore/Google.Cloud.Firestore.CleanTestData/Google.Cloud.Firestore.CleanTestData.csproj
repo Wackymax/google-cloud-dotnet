@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
     <IsPackable>False</IsPackable>
     <LangVersion>7.3</LangVersion>
+    <TargetFrameworks>net48;netcoreapp2.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>

@@ -177,12 +177,13 @@ namespace Google.Cloud.Firestore.Tests.Proto
                     return cursor.JsonValues.Select(DeserializeJson).ToArray();
                 }
                 var docRef = GetDocumentReference(docSnapshot.Path);
+                var serializationContext = new SerializationContext(ValueSerializer.Instance);
                 return DocumentSnapshot.ForDocument(
                     docRef.Database,
                     new Document
                     {
                         Name = docRef.Path,
-                        Fields = { ValueSerializer.SerializeMap(DeserializeJson(cursor.DocSnapshot.JsonData)) },
+                        Fields = { serializationContext.Serializer.SerializeMap(serializationContext, DeserializeJson(cursor.DocSnapshot.JsonData)) },
                         CreateTime = wkt::Timestamp.FromDateTimeOffset(DateTimeOffset.MinValue),
                         UpdateTime = wkt::Timestamp.FromDateTimeOffset(DateTimeOffset.MinValue),
                     },
@@ -379,6 +380,7 @@ namespace Google.Cloud.Firestore.Tests.Proto
         /// </summary>
         private static object ConvertValue(wkt::Value value)
         {
+            var serializationContext = new SerializationContext(ValueSerializer.Instance);
             switch (value.KindCase)
             {
                 case wkt::Value.KindOneofCase.BoolValue:
@@ -388,11 +390,11 @@ namespace Google.Cloud.Firestore.Tests.Proto
                     var first = values.FirstOrDefault();
                     if (first?.StringValue == "ArrayRemove")
                     {
-                        return FieldValue.ArrayRemove(values.Skip(1).Select(ConvertValue).ToArray());
+                        return FieldValue.ArrayRemove(serializationContext, values.Skip(1).Select(ConvertValue).ToArray());
                     }
                     else if (first?.StringValue == "ArrayUnion")
                     {
-                        return FieldValue.ArrayUnion(values.Skip(1).Select(ConvertValue).ToArray());
+                        return FieldValue.ArrayUnion(serializationContext, values.Skip(1).Select(ConvertValue).ToArray());
                     }
                     else
                     {

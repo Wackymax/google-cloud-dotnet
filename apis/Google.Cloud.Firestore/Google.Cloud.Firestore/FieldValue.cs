@@ -43,18 +43,20 @@ namespace Google.Cloud.Firestore
         /// <summary>
         /// Creates a sentinel value to indicate the union of the given values with an array.
         /// </summary>
+        /// <param name="serializationContext">Serialization context to serialize values</param>
         /// <param name="values">The values to include in the resulting sentinel value. Must not be null.</param>
         /// <returns>A sentinel value representing an array union.</returns>
-        public static object ArrayUnion(params object[] values) =>
-            SentinelValue.ForArrayValue(SentinelKind.ArrayUnion, values);
+        public static object ArrayUnion(SerializationContext serializationContext, params object[] values) =>
+            SentinelValue.ForArrayValue(serializationContext, SentinelKind.ArrayUnion, values);
 
         /// <summary>
         /// Creates a sentinel value to indicate the removal of the given values with an array.
         /// </summary>
+        /// <param name="serializationContext">Serialization context to serialize values</param>
         /// <param name="values">The values to include in the resulting sentinel value. Must not be null.</param>
         /// <returns>A sentinel value representing an array removal.</returns>
-        public static object ArrayRemove(params object[] values) =>
-            SentinelValue.ForArrayValue(SentinelKind.ArrayRemove, values);
+        public static object ArrayRemove(SerializationContext serializationContext, params object[] values) =>
+            SentinelValue.ForArrayValue(serializationContext, SentinelKind.ArrayRemove, values);
 
         /// <summary>
         /// Creates a sentinel value to indicate an increment by the given value.

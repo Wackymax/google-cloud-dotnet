@@ -27,7 +27,7 @@ namespace Google.Cloud.Firestore
     /// <summary>
     /// Provides conversions from .NET types to Firestore Value protos.
     /// </summary>
-    internal static class ValueSerializer
+    public class ValueSerializer : IValueSerializer
     {
         /// <summary>
         /// Serializes a single input to a Value.
@@ -37,15 +37,16 @@ namespace Google.Cloud.Firestore
         /// relevant when the input is already a proto. That allows the caller to then mutate the result
         /// where appropriate.
         /// </remarks>
+        /// <param name="serializationContext">Serialization context to use when serializing values</param>
         /// <param name="value">The value to serialize.</param>
         /// <returns>A Firestore Value proto.</returns>
-        internal static Value Serialize(object value)
+        public Value Serialize(SerializationContext serializationContext, object value)
         {
             if (value == null)
             {
                 return new Value { NullValue = wkt::NullValue.NullValue };
             }
-            return ConverterCache.GetConverter(value.GetType()).Serialize(value);
+            return ConverterCache.GetConverter(value.GetType()).Serialize(serializationContext, value);
         }
 
         /// <summary>
@@ -53,12 +54,17 @@ namespace Google.Cloud.Firestore
         /// This is effectively the map-only part of <see cref="Serialize"/>, but without wrapping the
         /// result in a Value.
         /// </summary>
-        internal static Dictionary<string, Value> SerializeMap(object value)
+        public Dictionary<string, Value> SerializeMap(SerializationContext serializationContext, object value)
         {
             GaxPreconditions.CheckNotNull(value, nameof(value));
             var map = new Dictionary<string, Value>();
-            ConverterCache.GetConverter(value.GetType()).SerializeMap(value, map);
+            ConverterCache.GetConverter(value.GetType()).SerializeMap(serializationContext, value, map);
             return map;
         }
+
+        /// <summary>
+        /// Static value serializer instance
+        /// </summary>
+        public static IValueSerializer Instance => new ValueSerializer();
     }
 }

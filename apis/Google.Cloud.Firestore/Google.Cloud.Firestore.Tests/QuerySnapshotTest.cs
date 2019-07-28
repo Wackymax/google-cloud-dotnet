@@ -119,13 +119,14 @@ namespace Google.Cloud.Firestore.Tests
 
         private static DocumentSnapshot GetSampleSnapshot(string docId)
         {
+            var serializationContext = new SerializationContext(s_db.Serializer);
             var readTime = new Timestamp(10, 2);
             var proto = new Document
             {
                 CreateTime = CreateProtoTimestamp(1, 10),
                 UpdateTime = CreateProtoTimestamp(2, 20),
                 Name = $"projects/proj/databases/db/documents/col1/{docId}",
-                Fields = { ValueSerializer.SerializeMap(new { Name = docId }) }
+                Fields = { serializationContext.Serializer.SerializeMap(serializationContext, new { Name = docId }) }
             };
             return DocumentSnapshot.ForDocument(s_db, proto, readTime);
         }

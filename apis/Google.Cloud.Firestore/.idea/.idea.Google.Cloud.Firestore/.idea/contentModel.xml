@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.21.0\runtimes\linux\native\libgrpc_csharp_ext.x64.so" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.21.0\runtimes\linux\native\libgrpc_csharp_ext.x86.so" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.21.0\runtimes\osx\native\libgrpc_csharp_ext.x64.dylib" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.21.0\runtimes\osx\native\libgrpc_csharp_ext.x86.dylib" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.21.0\runtimes\win\native\grpc_csharp_ext.x64.dll" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.21.0\runtimes\win\native\grpc_csharp_ext.x86.dll" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.22.0\runtimes\linux\native\libgrpc_csharp_ext.x64.so" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.22.0\runtimes\linux\native\libgrpc_csharp_ext.x86.so" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.22.0\runtimes\osx\native\libgrpc_csharp_ext.x64.dylib" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.22.0\runtimes\osx\native\libgrpc_csharp_ext.x86.dylib" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.22.0\runtimes\win\native\grpc_csharp_ext.x64.dll" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\grpc.core\1.22.0\runtimes\win\native\grpc_csharp_ext.x86.dll" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\microsoft.net.test.sdk\16.2.0\build\netcoreapp1.0" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="C:\Users\henni\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\_common\xunit.abstractions.dll" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\_common\xunit.runner.reporters.net452.dll" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\_common\xunit.runner.utility.net452.dll" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\_common\xunit.runner.visualstudio.testadapter.dll" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\henni\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="C:\Users\henni\.Rider2019.1\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\henni\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\henni\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_Google.Cloud.Firestore.1788186123.00" t="ExcludeRecursive" />
+    <e p="F:\Projects\Personal\google-cloud-dotnet\apis\Google.Cloud.Firestore" t="IncludeFlat">
+      <e p="Google.Cloud.Firestore" t="IncludeRecursive">
+        <e p="AssemblyInfo.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Blob.cs" t="Include" />
+        <e p="CollectionReference.cs" t="Include" />
+        <e p="Converters" t="Include">
+          <e p="AnonymousTypeConverter.cs" t="Include" />
+          <e p="ArrayConverter.cs" t="Include" />
+          <e p="AttributedIdAssigner.cs" t="Include" />
+          <e p="AttributedTypeConverter.cs" t="Include" />
+          <e p="ConverterBase.cs" t="Include" />
+          <e p="ConverterCache.cs" t="Include" />
+          <e p="CustomConverter.cs" t="Include" />
+          <e p="DictionaryConverter.cs" t="Include" />
+          <e p="EnumConverter.cs" t="Include" />
+          <e p="IFirestoreInternalConverter.cs" t="Include" />
+          <e p="ListConverter.cs" t="Include" />
+          <e p="ListConverterBase.cs" t="Include" />
+          <e p="MapConverterBase.cs" t="Include" />
+          <e p="SimpleConverters.cs" t="Include" />
+        </e>
+        <e p="DeserializationContext.cs" t="Include" />
+        <e p="DocumentChange.cs" t="Include" />
+        <e p="DocumentReference.cs" t="Include" />
+        <e p="DocumentSet.cs" t="Include" />
+        <e p="DocumentSnapshot.cs" t="Include" />
+        <e p="FieldMask.cs" t="Include" />
+        <e p="FieldPath.cs" t="Include" />
+        <e p="FieldValue.cs" t="Include" />
+        <e p="FirestoreChangeListener.cs" t="Include" />
+        <e p="FirestoreDataAttribute.cs" t="Include" />
+        <e p="FirestoreDb.cs" t="Include" />
+        <e p="FirestoreDocumentIdAttribute.cs" t="Include" />
+        <e p="FirestorePropertyAttribute.cs" t="Include" />
+        <e p="GeoPoint.cs" t="Include" />
+        <e p="Google.Cloud.Firestore.csproj" t="IncludeRecursive" />
+        <e p="IFirestoreConverter.cs" t="Include" />
+        <e p="IValueDeserializer.cs" t="Include" />
+        <e p="IValueSerializer.cs" t="Include" />
+        <e p="IWatchState.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net48" t="Include">
+              <e p="Google.Cloud.Firestore.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netstandard2.0" t="Include">
+              <e p="Google.Cloud.Firestore.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="PathComparer.cs" t="Include" />
+        <e p="PathUtilities.cs" t="Include" />
+        <e p="Precondition.cs" t="Include" />
+        <e p="Query.cs" t="Include" />
+        <e p="QuerySnapshot.cs" t="Include" />
+        <e p="RetryHelper.cs" t="Include" />
+        <e p="Sentinel.cs" t="Include" />
+        <e p="sentinel.proto" t="Include" />
+        <e p="SentinelValue.cs" t="Include" />
+        <e p="SerializationContext.cs" t="Include" />
+        <e p="ServerTimestampAttribute.cs" t="Include" />
+        <e p="SetOptions.cs" t="Include" />
+        <e p="Timestamp.cs" t="Include" />
+        <e p="Transaction.cs" t="Include" />
+        <e p="TransactionOptions.cs" t="Include" />
+        <e p="UnknownPropertyHandling.cs" t="Include" />
+        <e p="Utilities" t="Include">
+          <e p="EqualityHelpers.cs" t="Include" />
+        </e>
+        <e p="ValueComparer.cs" t="Include" />
+        <e p="ValueDeserializer.cs" t="Include" />
+        <e p="ValueSerializer.cs" t="Include" />
+        <e p="WatchState.cs" t="Include" />
+        <e p="WatchStream.cs" t="Include" />
+        <e p="WriteBatch.cs" t="Include" />
+        <e p="WriteResult.cs" t="Include" />
+      </e>
+      <e p="Google.Cloud.Firestore.Benchmarks" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="FakeFirestoreClient.cs" t="Include" />
+        <e p="Google.Cloud.Firestore.Benchmarks.csproj" t="IncludeRecursive" />
+        <e p="HighScore.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net48" t="Include">
+              <e p="Google.Cloud.Firestore.Benchmarks.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netcoreapp2.1" t="Include">
+              <e p="Google.Cloud.Firestore.Benchmarks.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="SampleData.cs" t="Include" />
+        <e p="ValueDeserializerBenchmark.cs" t="Include" />
+        <e p="ValueSerializerBenchmark.cs" t="Include" />
+      </e>
+      <e p="Google.Cloud.Firestore.CleanTestData" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Google.Cloud.Firestore.CleanTestData.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net48" t="Include">
+              <e p="Google.Cloud.Firestore.CleanTestData.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netcoreapp2.1" t="Include">
+              <e p="Google.Cloud.Firestore.CleanTestData.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+      </e>
+      <e p="Google.Cloud.Firestore.IntegrationBenchmarks" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Configuration.cs" t="Include" />
+        <e p="Google.Cloud.Firestore.IntegrationBenchmarks.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net48" t="Include">
+              <e p="Google.Cloud.Firestore.IntegrationBenchmarks.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netcoreapp2.1" t="Include">
+              <e p="Google.Cloud.Firestore.IntegrationBenchmarks.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="README.md" t="Include" />
+        <e p="RoundRobinPool.cs" t="Include" />
+        <e p="RunInfo.cs" t="Include" />
+        <e p="sample-config.json" t="Include" />
+        <e p="SampleDocument.cs" t="Include" />
+      </e>
+      <e p="Google.Cloud.Firestore.IntegrationTests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CollectionListingTest.cs" t="Include" />
+        <e p="coverage.xml" t="Include" />
+        <e p="DataModelTest.cs" t="Include" />
+        <e p="DocumentCreationTest.cs" t="Include" />
+        <e p="DocumentDeletionTest.cs" t="Include" />
+        <e p="DocumentMutationTest.cs" t="Include" />
+        <e p="DocumentWatchTest.cs" t="Include" />
+        <e p="FieldMaskFetchingTest.cs" t="Include" />
+        <e p="FirestoreAssert.cs" t="Include" />
+        <e p="FirestoreFixture.cs" t="Include" />
+        <e p="Google.Cloud.Firestore.IntegrationTests.csproj" t="IncludeRecursive" />
+        <e p="Models" t="Include">
+          <e p="ArrayDocument.cs" t="Include" />
+          <e p="HighScore.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net48" t="Include">
+              <e p="Google.Cloud.Firestore.IntegrationTests.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netcoreapp2.1" t="Include">
+              <e p="Google.Cloud.Firestore.IntegrationTests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="QueryTest.cs" t="Include" />
+        <e p="RunInTransactionTest.cs" t="Include" />
+      </e>
+      <e p="Google.Cloud.Firestore.sln" t="IncludeFlat" />
+      <e p="Google.Cloud.Firestore.Snippets" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="coverage.xml" t="Include" />
+        <e p="DataModelSnippets.cs" t="Include" />
+        <e p="FirestoreFixture.cs" t="Include" />
+        <e p="Google.Cloud.Firestore.Snippets.csproj" t="IncludeRecursive" />
+        <e p="IndexSnippets.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net48" t="Include">
+              <e p="Google.Cloud.Firestore.Snippets.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netcoreapp2.1" t="Include">
+              <e p="Google.Cloud.Firestore.Snippets.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="UserGuideSnippets.cs" t="Include" />
+      </e>
+      <e p="Google.Cloud.Firestore.Tests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BlobTest.cs" t="Include" />
+        <e p="CodeHealthTest.cs" t="Include" />
+        <e p="CollectionInitializerExtensions.cs" t="Include" />
+        <e p="CollectionReferenceTest.cs" t="Include" />
+        <e p="ComparisonTester.cs" t="Include" />
+        <e p="Converters" t="Include">
+          <e p="AttributedIdAssignerTest.cs" t="Include" />
+          <e p="AttributedTypeConverterTest.cs" t="Include" />
+          <e p="ConverterCacheTest.cs" t="Include" />
+          <e p="CustomConverterTest.cs" t="Include" />
+        </e>
+        <e p="coverage.xml" t="Include" />
+        <e p="DocumentChangeTest.cs" t="Include" />
+        <e p="DocumentReferenceTest.cs" t="Include" />
+        <e p="DocumentSetTest.cs" t="Include" />
+        <e p="DocumentSnapshotTest.cs" t="Include" />
+        <e p="FakeDocumentStream.cs" t="Include" />
+        <e p="FakeFirestoreClient.cs" t="Include" />
+        <e p="FakeQueryStream.cs" t="Include" />
+        <e p="FieldMaskTest.cs" t="Include" />
+        <e p="FieldPathTest.cs" t="Include" />
+        <e p="FirestoreDbTest.cs" t="Include" />
+        <e p="FirestoreDbTest.RunTransactionAsync.cs" t="Include" />
+        <e p="FirestoreEnumNameConverter.cs" t="Include" />
+        <e p="GeoPointTest.cs" t="Include" />
+        <e p="Google.Cloud.Firestore.Tests.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net48" t="Include">
+              <e p="Google.Cloud.Firestore.Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netcoreapp2.1" t="Include">
+              <e p="Google.Cloud.Firestore.Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="PathComparerTest.cs" t="Include" />
+        <e p="PathUtilitiesTest.cs" t="Include" />
+        <e p="PreconditionTest.cs" t="Include" />
+        <e p="Proto" t="Include">
+          <e p="ProtoTest.cs" t="Include" />
+          <e p="Tests.cs" t="Include" />
+        </e>
+        <e p="ProtoHelpers.cs" t="Include" />
+        <e p="QuerySnapshotTest.cs" t="Include" />
+        <e p="QueryTest.CreateDocumentSnapshotComparer.cs" t="Include" />
+        <e p="QueryTest.cs" t="Include" />
+        <e p="SentinelValueTest.cs" t="Include" />
+        <e p="SerializationTestData.cs" t="Include" />
+        <e p="SetOptionsTest.cs" t="Include" />
+        <e p="TimestampTest.cs" t="Include" />
+        <e p="TransactionOptionsTest.cs" t="Include" />
+        <e p="TransactionTest.cs" t="Include" />
+        <e p="TransactionTestingClient.cs" t="Include" />
+        <e p="ValueComparerTest.cs" t="Include" />
+        <e p="ValueDeserializerTest.cs" t="Include" />
+        <e p="ValueSerializerTest.cs" t="Include" />
+        <e p="WatchStateTest.cs" t="Include" />
+        <e p="WatchStreamTest.cs" t="Include" />
+        <e p="WriteBatchTest.ApplyFieldMask.cs" t="Include" />
+        <e p="WriteBatchTest.cs" t="Include" />
+        <e p="WriteBatchTest.ExpandObject.cs" t="Include" />
+        <e p="WriteBatchTest.ExtractDocumentMask.cs" t="Include" />
+        <e p="WriteBatchTest.SentinelValues.cs" t="Include" />
+        <e p="WriteBatchTest.ValidateNoPrefixes.cs" t="Include" />
+        <e p="WriteResultTest.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+    <e p="F:\Projects\Personal\google-cloud-dotnet\apis\Google.Cloud.Firestore.V1\Google.Cloud.Firestore.V1" t="IncludeRecursive">
+      <e p="AssemblyInfo.cs" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="Common.cs" t="Include" />
+      <e p="Document.cs" t="Include" />
+      <e p="Firestore.cs" t="Include" />
+      <e p="FirestoreClient.cs" t="Include" />
+      <e p="FirestoreClientPartial.cs" t="Include" />
+      <e p="FirestoreGrpc.cs" t="Include" />
+      <e p="Google.Cloud.Firestore.V1.csproj" t="IncludeRecursive" />
+      <e p="obj" t="ExcludeRecursive">
+        <e p="Debug" t="Include">
+          <e p="net48" t="Include">
+            <e p="Google.Cloud.Firestore.V1.AssemblyInfo.cs" t="Include" />
+          </e>
+          <e p="netstandard2.0" t="Include">
+            <e p="Google.Cloud.Firestore.V1.AssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="Query.cs" t="Include" />
+      <e p="ResourceNames.cs" t="Include" />
+      <e p="Write.cs" t="Include" />
+    </e>
+    <e p="F:\Projects\Personal\google-cloud-dotnet\LICENSE" t="Include" />
+    <e p="F:\Projects\Personal\google-cloud-dotnet\tools\Google.Cloud.ClientTesting" t="IncludeRecursive">
+      <e p="AbstractClientTester.cs" t="Include" />
+      <e p="AlphabeticalOrderer.cs" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="CloudProjectFixtureBase.cs" t="Include" />
+      <e p="CodeHealthTester.cs" t="Include" />
+      <e p="ConformanceTestData.cs" t="Include" />
+      <e p="EqualityTester.cs" t="Include" />
+      <e p="FakeHttpClientFactory.cs" t="Include" />
+      <e p="FileLogger.cs" t="Include" />
+      <e p="FileLoggerBeforeAfterTestAttribute.cs" t="Include" />
+      <e p="Google.Cloud.ClientTesting.csproj" t="IncludeRecursive" />
+      <e p="GrpcInfo.cs" t="Include" />
+      <e p="IdGenerator.cs" t="Include" />
+      <e p="MockableMessageHandler.cs" t="Include" />
+      <e p="NotImplementedCallInvoker.cs" t="Include" />
+      <e p="obj" t="ExcludeRecursive">
+        <e p="Debug" t="Include">
+          <e p="net451" t="Include">
+            <e p="Google.Cloud.ClientTesting.AssemblyInfo.cs" t="Include" />
+          </e>
+          <e p="netstandard1.6" t="Include">
+            <e p="Google.Cloud.ClientTesting.AssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="ReplayingMessageHandler.cs" t="Include" />
+      <e p="SnippetOutputCollectorAttribute.cs" t="Include" />
+      <e p="TestEnvironment.cs" t="Include" />
+    </e>
+  </component>
+</project>

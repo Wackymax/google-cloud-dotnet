@@ -330,7 +330,8 @@ namespace Google.Cloud.Firestore
         /// <returns>A new query based on the current one, but with the additional specified filter applied.</returns>
         private Query Where(FieldPath fieldPath, FieldOp op, object value)
         {
-            InternalFilter filter = InternalFilter.Create(fieldPath, op, value);
+            var serializationContext = new SerializationContext(Database.Serializer);
+            InternalFilter filter = InternalFilter.Create(serializationContext, fieldPath, op, value);
             var newFilters = _filters == null ? new List<InternalFilter>() : new List<InternalFilter>(_filters);
             newFilters.Add(filter);
             return new Query(_root, _offset, _limit, _orderings, newFilters, _projections, _startAt, _endAt);
@@ -627,7 +628,8 @@ namespace Google.Cloud.Firestore
                 {
                     value = ConvertReference(fieldValues[i], nameof(fieldValues));
                 }
-                var convertedValue = ValueSerializer.Serialize(value);
+                var serializationContext = new SerializationContext(Database.Serializer);
+                var convertedValue = serializationContext.Serializer.Serialize(serializationContext, value);
                 ValidateNoSentinelsRecursively(convertedValue, "Snapshot ordering contained a sentinel value");
                 cursor.Values.Add(convertedValue);
             }
@@ -729,15 +731,16 @@ namespace Google.Cloud.Firestore
                 modifiedOrderings.Add(new InternalOrdering(FieldPath.DocumentId, lastDirection));
             }
 
+            var serializationContext = new SerializationContext(Database.Serializer);
             foreach (var ordering in newOrderings)
             {
                 var field = ordering.Field;
-                var value = Equals(field, FieldPath.DocumentId) ? ValueSerializer.Serialize(snapshot.Reference) : snapshot.ExtractValue(field);
+                var value = Equals(field, FieldPath.DocumentId) ? snapshot.Database.Serializer.Serialize(serializationContext, snapshot.Reference) : snapshot.ExtractValue(field);
                 if (value == null)
                 {
                     throw new ArgumentException($"Snapshot does not contain field {field}", nameof(snapshot));
                 }
-                cursor.Values.Add(ValueSerializer.Serialize(value));
+                cursor.Values.Add(snapshot.Database.Serializer.Serialize(serializationContext, value));
             }
             return cursor;
         }
@@ -891,7 +894,7 @@ namespace Google.Cloud.Firestore
             /// </summary>
             internal bool IsEqualityFilter() => _value == null || _op == (int) FieldOp.Equal || _op == (int) FieldOp.ArrayContains;
 
-            internal static InternalFilter Create(FieldPath fieldPath, FieldOp op, object value)
+            internal static InternalFilter Create(SerializationContext serializationContext, FieldPath fieldPath, FieldOp op, object value)
             {
                 GaxPreconditions.CheckNotNull(fieldPath, nameof(fieldPath));
                 var unaryOperator = GetUnaryOperator(value);
@@ -908,7 +911,7 @@ namespace Google.Cloud.Firestore
                 }
                 else
                 {
-                    var convertedValue = ValueSerializer.Serialize(value);
+                    var convertedValue = serializationContext.Serializer.Serialize(serializationContext, value);
                     ValidateNoSentinelsRecursively(convertedValue, "Sentinel values cannot be specified in filters");
                     return new InternalFilter(fieldPath, (int) op, convertedValue);
                 }

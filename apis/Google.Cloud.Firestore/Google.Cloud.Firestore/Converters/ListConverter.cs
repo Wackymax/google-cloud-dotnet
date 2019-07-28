@@ -54,7 +54,7 @@ namespace Google.Cloud.Firestore.Converters
             var list = (IList) Activator.CreateInstance(TargetType);
             foreach (var value in values)
             {
-                var deserialized = ValueDeserializer.Deserialize(context, value, _elementType);
+                var deserialized = context.Database.Deserializer.Deserialize(context, value, _elementType);
                 list.Add(deserialized);
             }
             return list;

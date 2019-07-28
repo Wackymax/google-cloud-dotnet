@@ -148,11 +148,11 @@ namespace Google.Cloud.Firestore.Converters
             return ret;
         }
 
-        public override void SerializeMap(object value, IDictionary<string, Value> map)
+        public override void SerializeMap(SerializationContext serializationContext, object value, IDictionary<string, Value> map)
         {
             foreach (var property in _readableProperties)
             {
-                map[property.FirestoreName] = property.GetProtoValue(value);
+                map[property.FirestoreName] = property.GetProtoValue(serializationContext, value);
             }
         }
 
@@ -198,22 +198,22 @@ namespace Google.Cloud.Firestore.Converters
 
             // TODO: Consider creating delegates for the property get/set methods.
             // Note: these methods have to handle null values when there's a custom converter involved, just like ValueSerializer/ValueDeserializer do.
-            internal Value GetProtoValue(object obj)
+            internal Value GetProtoValue(SerializationContext serializationContext, object obj)
             {
                 if (_sentinelValue != null)
                 {
                     return _sentinelValue.ToProtoValue();
                 }
                 object propertyValue = _propertyInfo.GetValue(obj);
-                return _converter == null ? ValueSerializer.Serialize(propertyValue)
+                return _converter == null ? serializationContext.Serializer.Serialize(serializationContext, propertyValue)
                     : propertyValue == null ? new Value { NullValue = wkt::NullValue.NullValue }
-                    : _converter.Serialize(propertyValue);
+                    : _converter.Serialize(serializationContext, propertyValue);
             }
 
             internal void SetValue(DeserializationContext context, Value value, object target)
             {
                 object converted =
-                    _converter == null ? ValueDeserializer.Deserialize(context, value, _propertyInfo.PropertyType)
+                    _converter == null ? context.Database.Deserializer.Deserialize(context, value, _propertyInfo.PropertyType)
                     : value.ValueTypeCase == Value.ValueTypeOneofCase.NullValue ? null
                     : _converter.DeserializeValue(context, value);
                 _propertyInfo.SetValue(target, converted);

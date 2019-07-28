@@ -56,7 +56,8 @@ namespace Google.Cloud.Firestore
         {
             GaxPreconditions.CheckNotNull(documentReference, nameof(documentReference));
             GaxPreconditions.CheckNotNull(documentData, nameof(documentData));
-            var fields = ValueSerializer.SerializeMap(documentData);
+            var serializationContext = new SerializationContext(documentReference.Database.Serializer);
+            var fields = documentReference.Database.Serializer.SerializeMap(serializationContext, documentData);
             var sentinels = FindSentinels(fields);
             GaxPreconditions.CheckArgument(!sentinels.Any(sf => sf.IsDelete), nameof(documentData), "Delete sentinels cannot appear in Create calls");
             RemoveSentinels(fields, sentinels);
@@ -125,7 +126,8 @@ namespace Google.Cloud.Firestore
             GaxPreconditions.CheckArgument(updates.Count != 0, nameof(updates), "Empty set of updates specified");
             GaxPreconditions.CheckArgument(precondition?.Exists != true, nameof(precondition), "Cannot specify a must-exist precondition for update");
 
-            var serializedUpdates = updates.ToDictionary(pair => pair.Key, pair => ValueSerializer.Serialize(pair.Value));
+            var serializationContext = new SerializationContext(documentReference.Database.Serializer);
+            var serializedUpdates = updates.ToDictionary(pair => pair.Key, pair => serializationContext.Serializer.Serialize(serializationContext, pair.Value));
             var expanded = ExpandObject(serializedUpdates);
 
 
@@ -153,7 +155,8 @@ namespace Google.Cloud.Firestore
             GaxPreconditions.CheckNotNull(documentReference, nameof(documentReference));
             GaxPreconditions.CheckNotNull(documentData, nameof(documentData));
 
-            var fields = ValueSerializer.SerializeMap(documentData);
+            var serializationContext = new SerializationContext(documentReference.Database.Serializer);
+            var fields = serializationContext.Serializer.SerializeMap(serializationContext, documentData);
             options = options ?? SetOptions.Overwrite;
             var sentinels = FindSentinels(fields);
             var deletes = sentinels.Where(sf => sf.IsDelete).ToList();

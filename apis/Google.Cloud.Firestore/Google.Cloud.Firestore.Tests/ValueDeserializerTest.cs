@@ -40,7 +40,7 @@ namespace Google.Cloud.Firestore.Tests
         public void DeserializeToExpando()
         {
             var value = new Value { MapValue = new MapValue { Fields = { { "name", new Value { StringValue = "Jon" } }, { "score", new Value { IntegerValue = 10L } } } } };
-            dynamic result = ValueDeserializer.Deserialize(SerializationTestData.Context, value, typeof(ExpandoObject));
+            dynamic result = SerializationTestData.Context.Database.Deserializer.Deserialize(SerializationTestData.Context, value, typeof(ExpandoObject));
             Assert.Equal("Jon", result.name);
             Assert.Equal(10L, result.score);
         }
@@ -49,7 +49,7 @@ namespace Google.Cloud.Firestore.Tests
         public void DeserializeToObjectDictionary()
         {
             var value = new Value { MapValue = new MapValue { Fields = { { "name", new Value { StringValue = "Jon" } }, { "score", new Value { IntegerValue = 10L } } } } };
-            var result = ValueDeserializer.Deserialize(SerializationTestData.Context, value, typeof(object));
+            var result = SerializationTestData.Context.Database.Deserializer.Deserialize(SerializationTestData.Context, value, typeof(object));
             Assert.IsType<Dictionary<string, object>>(result);
             var expected = new Dictionary<string, object>
             {
@@ -63,7 +63,7 @@ namespace Google.Cloud.Firestore.Tests
         public void DeserializeToSpecificDictionary()
         {
             var value = new Value { MapValue = new MapValue { Fields = { { "x", new Value { IntegerValue = 10L } }, { "y", new Value { IntegerValue = 20L } } } } };
-            var result = ValueDeserializer.Deserialize(SerializationTestData.Context, value, typeof(Dictionary<string, int>));
+            var result = SerializationTestData.Context.Database.Deserializer.Deserialize(SerializationTestData.Context, value, typeof(Dictionary<string, int>));
             Assert.IsType<Dictionary<string, int>>(result);
             var expected = new Dictionary<string, int>
             {
@@ -191,7 +191,7 @@ namespace Google.Cloud.Firestore.Tests
         [Fact]
         public void DeserializeArrayToObjectUsesList()
         {
-            var value = ValueSerializer.Serialize(new[] { 1, 2 });
+            var value = SerializationContext.Serializer.Serialize(SerializationContext, new[] { 1, 2 });
             var deserialized = DeserializeDefault(value, typeof(object));
             Assert.IsType<List<object>>(deserialized);
             Assert.Equal(new List<object> { 1L, 2L }, deserialized);
@@ -297,7 +297,7 @@ namespace Google.Cloud.Firestore.Tests
                 InternalProperty = "x",
                 PublicAccessToPrivateProperty = "y"
             };
-            var value = ValueSerializer.Serialize(poco);
+            var value = SerializationContext.Serializer.Serialize(SerializationContext, poco);
             // Just verify that we're not using the public property directly...
             Assert.True(value.MapValue.Fields.ContainsKey("PrivateProperty"));
             Assert.False(value.MapValue.Fields.ContainsKey("PublicAccessToPrivateProperty"));
@@ -310,7 +310,7 @@ namespace Google.Cloud.Firestore.Tests
         public void DeserializePrivateConstructor()
         {
             var original = PrivateConstructor.Create("test", 15);
-            var value = ValueSerializer.Serialize(original);
+            var value = SerializationContext.Serializer.Serialize(SerializationContext, original);
             Assert.Equal("test", value.MapValue.Fields["Name"].StringValue);
             Assert.Equal(15L, value.MapValue.Fields["Value"].IntegerValue);
 
@@ -322,7 +322,7 @@ namespace Google.Cloud.Firestore.Tests
         [Fact]
         public void DeserializeInt64AndDoubleToEachOther()
         {
-            var value = ValueSerializer.Serialize(new { Name = "Test", DoubleValue = 100L, LongValue = 10.9 });
+            var value = SerializationContext.Serializer.Serialize(SerializationContext, new { Name = "Test", DoubleValue = 100L, LongValue = 10.9 });
             Assert.Equal(Value.ValueTypeOneofCase.IntegerValue, value.MapValue.Fields["DoubleValue"].ValueTypeCase);
             Assert.Equal(Value.ValueTypeOneofCase.DoubleValue, value.MapValue.Fields["LongValue"].ValueTypeCase);
             var deserialized = (ModelWithDoubleAndLong) DeserializeDefault(value, typeof(ModelWithDoubleAndLong));
@@ -376,11 +376,11 @@ namespace Google.Cloud.Firestore.Tests
 
         private string DeserializeAndReturnWarnings<T>(object valueToSerialize)
         {
-            var value = ValueSerializer.Serialize(valueToSerialize);
+            var value = SerializationContext.Serializer.Serialize(SerializationContext, valueToSerialize);
             string warning = null;
             var db = FirestoreDb.Create("proj", "db", new FakeFirestoreClient()).WithWarningLogger(Log);
             var context = new DeserializationContext(db.Document("a/b"));
-            ValueDeserializer.Deserialize(context, value, typeof(T));
+            context.Deserializer.Deserialize(context, value, typeof(T));
             return warning;
 
             void Log(string message)
@@ -394,9 +394,10 @@ namespace Google.Cloud.Firestore.Tests
             }
         }
 
+        private SerializationContext SerializationContext => new SerializationContext(ValueSerializer.Instance);
         // Just a convenience method to avoid having to specify all of this on each call.
         private static object DeserializeDefault(Value value, BclType targetType) =>
-            ValueDeserializer.Deserialize(SerializationTestData.Context, value, targetType);
+            SerializationTestData.Context.Deserializer.Deserialize(SerializationTestData.Context, value, targetType);
 
         /// <summary>
         /// An interface that we can't deserialize to, because Dictionary{,} doesn't implement it.

@@ -346,13 +346,14 @@ namespace Google.Cloud.Firestore.Tests
                 Nested = new NestedData { Score = 20 }
             };
             var db = FirestoreDb.Create("proj", "db", new FakeFirestoreClient());
+            var serializationContext = new SerializationContext(db.Serializer);
             var readTime = new Timestamp(10, 2);
             var proto = new Document
             {
                 CreateTime = CreateProtoTimestamp(1, 10),
                 UpdateTime = CreateProtoTimestamp(2, 20),
                 Name = "projects/proj/databases/db/documents/col1/doc1/col2/doc2",
-                Fields = { ValueSerializer.SerializeMap(poco) }
+                Fields = { serializationContext.Serializer.SerializeMap(serializationContext, poco) }
             };
             return DocumentSnapshot.ForDocument(db, proto, readTime);
         }

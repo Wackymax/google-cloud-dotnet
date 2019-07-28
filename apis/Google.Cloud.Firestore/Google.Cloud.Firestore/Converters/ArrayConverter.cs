@@ -36,7 +36,7 @@ namespace Google.Cloud.Firestore.Converters
             Array array = Array.CreateInstance(_elementType, values.Count);
             for (int i = 0; i < values.Count; i++)
             {
-                var converted = ValueDeserializer.Deserialize(context, values[i], _elementType);
+                var converted = context.Database.Deserializer.Deserialize(context, values[i], _elementType);
                 array.SetValue(converted, i);
             }
             return array;

@@ -32,8 +32,8 @@ namespace Google.Cloud.Firestore.Tests.Converters
             var db = FirestoreDb.Create("proj", "db", new FakeFirestoreClient());
             var context = new DeserializationContext(db.Document("a/b"));
             var converter = CustomConverter.ForConverterType(typeof(NullReturningConverter), typeof(string));
-            Assert.Throws<InvalidOperationException>(() => converter.Serialize(""));
-            Assert.Throws<InvalidOperationException>(() => converter.SerializeMap("", new Dictionary<string, Value>()));
+            Assert.Throws<InvalidOperationException>(() => converter.Serialize(SerializationContext, ""));
+            Assert.Throws<InvalidOperationException>(() => converter.SerializeMap(SerializationContext, "", new Dictionary<string, Value>()));
             Assert.Throws<InvalidOperationException>(() => converter.DeserializeValue(context, new Value { StringValue = "" }));
             Assert.Throws<InvalidOperationException>(() => converter.DeserializeMap(context, new Dictionary<string, Value>()));
         }
@@ -49,5 +49,6 @@ namespace Google.Cloud.Firestore.Tests.Converters
             public string FromFirestore(object value) => null;
             public object ToFirestore(string value) => null;
         }
+        private SerializationContext SerializationContext => new SerializationContext(ValueSerializer.Instance);
     }
 }

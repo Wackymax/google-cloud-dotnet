@@ -64,7 +64,7 @@ namespace Google.Cloud.Firestore.Converters
 
         public object DeserializeMap(DeserializationContext context, IDictionary<string, Value> values)
         {
-            var poco = ValueDeserializer.DeserializeMap(context, values, typeof(Dictionary<string, object>));
+            var poco = context.Database.Deserializer.DeserializeMap(context, values, typeof(Dictionary<string, object>));
             var converted = _wrappedConverter.FromFirestore(poco);
             GaxPreconditions.CheckState(converted != null, "Converter deserialized to null value");
             return converted;
@@ -72,25 +72,25 @@ namespace Google.Cloud.Firestore.Converters
 
         public object DeserializeValue(DeserializationContext context, Value value)
         {
-            var poco = ValueDeserializer.Deserialize(context, value, typeof(object));
+            var poco = context.Database.Deserializer.Deserialize(context, value, typeof(object));
             var converted = _wrappedConverter.FromFirestore(poco);
             GaxPreconditions.CheckState(converted != null, "Converter deserialized to null value");
             return converted;
         }
 
-        public Value Serialize(object value)
+        public Value Serialize(SerializationContext serializationContext, object value)
         {
             var poco = _wrappedConverter.ToFirestore((T) value);
             GaxPreconditions.CheckState(poco != null, "Converter serialized to null value");
-            return ValueSerializer.Serialize(poco);
+            return serializationContext.Serializer.Serialize(serializationContext, poco);
         }
 
-        public void SerializeMap(object value, IDictionary<string, Value> map)
+        public void SerializeMap(SerializationContext serializationContext, object value, IDictionary<string, Value> map)
         {
             var poco = _wrappedConverter.ToFirestore((T) value);
             GaxPreconditions.CheckState(poco != null, "Converter serialized to null value");
             // TODO: Change ValueSerializer.SerializeMap to accept a map rather than return it? Then we can just pass it through.
-            var resultMap = ValueSerializer.SerializeMap(poco);
+            var resultMap = serializationContext.Serializer.SerializeMap(serializationContext, poco);
             foreach (var entry in resultMap)
             {
                 map.Add(entry);

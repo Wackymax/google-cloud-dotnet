@@ -24,7 +24,10 @@ namespace Google.Cloud.Firestore
     {
         /// <summary>
         /// The strategy to use when handling unknown properties. The default is
-        /// <see cref="UnknownPropertyHandling.Warn"/>.
+        /// <see>
+        ///     <cref>UnknownPropertyHandling.Warn</cref>
+        /// </see>
+        /// .
         /// </summary>
         public UnknownPropertyHandling UnknownPropertyHandling { get; set; }
 

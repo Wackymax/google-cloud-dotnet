@@ -29,7 +29,7 @@ namespace Google.Cloud.Firestore
     /// <summary>
     /// Provides conversions from Firestore Value protos to .NET types.
     /// </summary>
-    internal static class ValueDeserializer
+    internal class ValueDeserializer : IValueDeserializer
     {
         /// <summary>
         /// Deserializes from a Firestore Value proto to a .NET type.
@@ -39,7 +39,7 @@ namespace Google.Cloud.Firestore
         /// <param name="targetType">The target type. The method tries to convert to this type. If the type is
         /// object, it uses the default representation of the value.</param>
         /// <returns>The deserialized value</returns>
-        internal static object Deserialize(DeserializationContext context, Value value, BclType targetType)
+        public object Deserialize(DeserializationContext context, Value value, BclType targetType)
         {
             GaxPreconditions.CheckNotNull(context, nameof(context));
             GaxPreconditions.CheckNotNull(value, nameof(value));
@@ -70,7 +70,7 @@ namespace Google.Cloud.Firestore
             return ConverterCache.GetConverter(nonNullableTargetType).DeserializeValue(context, value);
         }
 
-        internal static object DeserializeMap(DeserializationContext context, IDictionary<string, Value> values, BclType targetType)
+        public object DeserializeMap(DeserializationContext context, IDictionary<string, Value> values, BclType targetType)
         {
             if (targetType == typeof(object))
             {
@@ -111,5 +111,7 @@ namespace Google.Cloud.Firestore
                     throw new ArgumentException($"Unable to convert value type {value.ValueTypeCase} to System.Object");
             }
         }
+
+        public static IValueDeserializer Instance => new ValueDeserializer();
     }
 }

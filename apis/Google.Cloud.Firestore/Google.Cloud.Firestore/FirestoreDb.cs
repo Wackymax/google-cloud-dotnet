@@ -64,6 +64,15 @@ namespace Google.Cloud.Firestore
 
         private readonly CallSettings _batchGetCallSettings;
 
+        /// <summary>
+        /// Deserializer to use when deserializing objects
+        /// </summary>
+        public IValueDeserializer Deserializer { get; set; } = ValueDeserializer.Instance;
+        /// <summary>
+        /// Serializer to use when serializing objects
+        /// </summary>
+        public IValueSerializer Serializer { get; set; } = ValueSerializer.Instance;
+
         private FirestoreDb(string projectId, string databaseId, FirestoreClient client, Action<string> warningLogger)
         {
             ProjectId = GaxPreconditions.CheckNotNull(projectId, nameof(projectId));

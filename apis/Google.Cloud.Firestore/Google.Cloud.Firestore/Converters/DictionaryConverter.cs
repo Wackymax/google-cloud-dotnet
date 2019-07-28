@@ -54,17 +54,17 @@ namespace Google.Cloud.Firestore.Converters
             var ret = (IDictionary<string, TValue>) Activator.CreateInstance(_concreteType);
             foreach (var pair in values)
             {
-                ret.Add(pair.Key, (TValue) ValueDeserializer.Deserialize(context, pair.Value, typeof(TValue)));
+                ret.Add(pair.Key, (TValue) context.Database.Deserializer.Deserialize(context, pair.Value, typeof(TValue)));
             }
             return ret;
         }
 
-        public override void SerializeMap(object value, IDictionary<string, Value> map)
+        public override void SerializeMap(SerializationContext serializationContext, object value, IDictionary<string, Value> map)
         {
             var dictionary = (IDictionary<string, TValue>) value;
             foreach (var pair in dictionary)
             {
-                map[pair.Key] = ValueSerializer.Serialize(pair.Value);
+                map[pair.Key] = serializationContext.Serializer.Serialize(serializationContext, pair.Value);
             }
         }
     }

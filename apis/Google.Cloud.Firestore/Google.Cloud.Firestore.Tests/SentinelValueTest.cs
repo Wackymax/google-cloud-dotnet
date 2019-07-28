@@ -27,8 +27,8 @@ namespace Google.Cloud.Firestore.Tests
         [Fact]
         public void ArrayRemove()
         {
-            var sentinel = FieldValue.ArrayRemove("a", 1);
-            var value = ValueSerializer.Serialize(sentinel);
+            var sentinel = FieldValue.ArrayRemove(SerializationContext, "a", 1);
+            var value = SerializationContext.Serializer.Serialize(SerializationContext, sentinel);
             Assert.Equal(SentinelKind.ArrayRemove, SentinelValue.GetKind(value));
             var array = SentinelValue.GetArrayValue(value);
             var expected = CreateArray(CreateValue("a"), CreateValue(1)).ArrayValue;
@@ -38,8 +38,8 @@ namespace Google.Cloud.Firestore.Tests
         [Fact]
         public void ArrayUnion()
         {
-            var sentinel = FieldValue.ArrayUnion("a", "b");
-            var value = ValueSerializer.Serialize(sentinel);
+            var sentinel = FieldValue.ArrayUnion(SerializationContext, "a", "b");
+            var value = SerializationContext.Serializer.Serialize(SerializationContext, sentinel);
             Assert.Equal(SentinelKind.ArrayUnion, SentinelValue.GetKind(value));
             var array = SentinelValue.GetArrayValue(value);
             var expected = CreateArray(CreateValue("a"), CreateValue("b")).ArrayValue;
@@ -50,7 +50,7 @@ namespace Google.Cloud.Firestore.Tests
         public void Increment_Int64()
         {
             var sentinel = FieldValue.Increment(100L);
-            var value = ValueSerializer.Serialize(sentinel);
+            var value = SerializationContext.Serializer.Serialize(SerializationContext, sentinel);
             Assert.Equal(SentinelKind.NumericIncrement, SentinelValue.GetKind(value));
             var increment = SentinelValue.GetIncrement(value);
             var expected = new Value { IntegerValue = 100L };
@@ -61,11 +61,12 @@ namespace Google.Cloud.Firestore.Tests
         public void Increment_Double()
         {
             var sentinel = FieldValue.Increment(12.5);
-            var value = ValueSerializer.Serialize(sentinel);
+            var value = SerializationContext.Serializer.Serialize(SerializationContext, sentinel);
             Assert.Equal(SentinelKind.NumericIncrement, SentinelValue.GetKind(value));
             var increment = SentinelValue.GetIncrement(value);
             var expected = new Value { DoubleValue = 12.5 };
             Assert.Equal(expected, increment);
         }
+        private SerializationContext SerializationContext => new SerializationContext(ValueSerializer.Instance);
     }
 }

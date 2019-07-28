@@ -127,7 +127,7 @@ namespace Google.Cloud.Firestore.IntegrationTests
         public async Task Set_ArrayUnion()
         {
             var doc = await _fixture.NonQueryCollection.AddAsync(new { Name = "Original", Values = new[] { 1, 2, 3 } });
-            await doc.SetAsync(new { Name = "Modified", Values = FieldValue.ArrayUnion(2, 4) }, SetOptions.MergeAll);
+            await doc.SetAsync(new { Name = "Modified", Values = FieldValue.ArrayUnion(SerializationContext, 2, 4) }, SetOptions.MergeAll);
             var snapshot = await doc.GetSnapshotAsync();
             AssertSerialized(snapshot, new { Name = "Modified", Values = new[] { 1, 2, 3, 4 } });
         }
@@ -136,7 +136,7 @@ namespace Google.Cloud.Firestore.IntegrationTests
         public async Task Set_ArrayRemove()
         {
             var doc = await _fixture.NonQueryCollection.AddAsync(new { Name = "Original", Values = new[] { 1, 2, 3 } });
-            await doc.SetAsync(new { Name = "Modified", Values = FieldValue.ArrayRemove(2, 4) }, SetOptions.MergeAll);
+            await doc.SetAsync(new { Name = "Modified", Values = FieldValue.ArrayRemove(SerializationContext, 2, 4) }, SetOptions.MergeAll);
             var snapshot = await doc.GetSnapshotAsync();
             AssertSerialized(snapshot, new { Name = "Modified", Values = new[] { 1, 3 } });
         }
@@ -145,7 +145,7 @@ namespace Google.Cloud.Firestore.IntegrationTests
         public async Task Update_ArrayUnion()
         {
             var doc = await _fixture.NonQueryCollection.AddAsync(new { Name = "Original", Values = new[] { 1, 2, 3 } });
-            await doc.UpdateAsync("Values", FieldValue.ArrayUnion(2, 4));
+            await doc.UpdateAsync("Values", FieldValue.ArrayUnion(SerializationContext, 2, 4));
             var snapshot = await doc.GetSnapshotAsync();
             AssertSerialized(snapshot, new { Name = "Original", Values = new[] { 1, 2, 3, 4 } });
         }
@@ -154,7 +154,7 @@ namespace Google.Cloud.Firestore.IntegrationTests
         public async Task Update_ArrayRemove()
         {
             var doc = await _fixture.NonQueryCollection.AddAsync(new { Name = "Original", Values = new[] { 1, 2, 3 } });
-            await doc.UpdateAsync("Values", FieldValue.ArrayRemove(2, 4));
+            await doc.UpdateAsync("Values", FieldValue.ArrayRemove(SerializationContext, 2, 4));
             var snapshot = await doc.GetSnapshotAsync();
             AssertSerialized(snapshot, new { Name = "Original", Values = new[] { 1, 3 } });
         }
@@ -167,8 +167,8 @@ namespace Google.Cloud.Firestore.IntegrationTests
         {
             var doc = await _fixture.NonQueryCollection.AddAsync(new { Name = "Original", Values = new[] { 1, 2, 3 } });
             var batch = doc.Database.StartBatch();
-            batch.Update(doc, "Values", FieldValue.ArrayRemove(2, 4));
-            batch.Update(doc, "Values", FieldValue.ArrayUnion(3, 5));
+            batch.Update(doc, "Values", FieldValue.ArrayRemove(SerializationContext, 2, 4));
+            batch.Update(doc, "Values", FieldValue.ArrayUnion(SerializationContext, 3, 5));
             await batch.CommitAsync();
             var snapshot = await doc.GetSnapshotAsync();
             AssertSerialized(snapshot, new { Name = "Original", Values = new[] { 1, 3, 5 } });
@@ -262,5 +262,7 @@ namespace Google.Cloud.Firestore.IntegrationTests
         private Dictionary<string, object> Map(string name, object value) => new Dictionary<string, object> { { name, value } };
         private Dictionary<string, object> Map(params (string name, object value)[] fields) =>
             fields.ToDictionary(field => field.name, field => field.value);
+
+        private SerializationContext SerializationContext => new SerializationContext(ValueSerializer.Instance);
     }
 }

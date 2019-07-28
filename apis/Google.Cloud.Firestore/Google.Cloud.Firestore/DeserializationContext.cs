@@ -19,13 +19,14 @@ namespace Google.Cloud.Firestore
     /// <summary>
     /// Provides context for deserialization operations.
     /// </summary>
-    internal sealed class DeserializationContext
+    public sealed class DeserializationContext
     {
         /// <summary>
         /// The database containing the document being deserialized. This is never null.
         /// </summary>
         internal FirestoreDb Database => DocumentReference.Database;
 
+        internal IValueDeserializer Deserializer => Database.Deserializer;
         /// <summary>
         /// The document being deserialized. This is never null.
         /// </summary>
